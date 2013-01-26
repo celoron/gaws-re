@@ -19,6 +19,8 @@ public class MenuState extends BasicGameState {
 	GuiStyle style;
 	GuiStyle label;
 	
+	boolean toggle= false;
+	
 	public MenuState(int id){
 		this.id=id;
 	}
@@ -47,17 +49,13 @@ public class MenuState extends BasicGameState {
 		GuiLayout layout= new GuiLayoutHorizontal(200, 40);
 		
 		layout.draw(label, "Test button1");
-		if(layout.draw(style, "Test")){
-			System.out.println("Test!");
+		if(layout.draw(style, "Kill")){
+			System.out.println("Kill");
+			toggle= !toggle;
 		}
 		
-		
-		GuiLayout layout2= new GuiLayoutHorizontal(200, 80);
-		
-
-		layout2.draw(label, "Test button2");
-		if(layout2.draw(style, "Test2")){
-			System.out.println("Test2!");
+		if(toggle && layout.draw(style, "Kill more")){
+			System.out.println("Double kill");
 		}
 	}
 
