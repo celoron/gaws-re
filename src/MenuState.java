@@ -51,7 +51,10 @@ public class MenuState extends BasicGameState {
 			System.out.println("Test!");
 		}
 		
-		if(layout.draw(style, "Test2")){
+		GuiLayout layout2= new GuiLayoutHorizontal(200, 80);
+
+		layout2.draw(label, "Test button2");
+		if(layout2.draw(style, "Test2")){
 			System.out.println("Test2!");
 		}
 	}
