@@ -7,7 +7,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import celoron.gui.GuiLayout;
 import celoron.gui.GuiLayoutHorizontal;
-import celoron.gui.GuiLayoutVertical;
 import celoron.gui.GuiStyle;
 
 
@@ -48,14 +47,13 @@ public class MenuState extends BasicGameState {
 		
 		GuiLayout layout= new GuiLayoutHorizontal(200, 40);
 		
-		layout.draw(label, "Test button1");
-		if(layout.draw(style, "Kill")){
-			System.out.println("Kill");
+		layout.draw(label, "Test Scene");
+		if(layout.draw(style, "Click me")){
 			toggle= !toggle;
 		}
 		
-		if(toggle && layout.draw(style, "Kill more")){
-			System.out.println("Double kill");
+		if(toggle && layout.draw(style, "And me")){
+			sbg.enterState(TheGame.MAP_STATE);
 		}
 	}
 
