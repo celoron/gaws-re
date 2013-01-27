@@ -9,11 +9,15 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import celoron.gui.GuiStyle;
+
 public class MapState extends BasicGameState {
 	int id;
 	
 	MapObjectMoveable ship= null;
 	MapScene mscene= new MapScene();
+	
+	GuiStyle label;
 	
 	public MapState(int id){
 		this.id=id;
@@ -27,6 +31,11 @@ public class MapState extends BasicGameState {
 		mscene.add(ship);
 		
 		mscene.add(new MapObject(new Image("data/rock.png"), new Vector2f(200,100)));
+
+		label= new GuiStyle(new Image("data/btn_back.png"));
+		label.setBorders(3, 3, 3, 3);
+		label.setPaddings(10, 10, 8, 8);
+		label.setFont("data/myriad.OTF", 20);
 		
 	}
 
@@ -35,6 +44,8 @@ public class MapState extends BasicGameState {
 			throws SlickException {
 		
 		mscene.renderAll();
+		
+		label.draw("Right mouse click to move ship", 500, 20);
 	}
 
 	@Override
