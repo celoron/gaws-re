@@ -35,7 +35,7 @@ public class MapObject {
 		
 	}
 	
-	public void render(){
-		img.drawCentered(pos.x, pos.y);
+	public void render(Vector2f camPos){
+		img.drawCentered(pos.x - camPos.x, pos.y - camPos.y);
 	}
 }

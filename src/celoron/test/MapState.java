@@ -1,5 +1,7 @@
 package celoron.test;
 
+import java.util.Random;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,7 +17,7 @@ public class MapState extends BasicGameState {
 	int id;
 	
 	MapObjectMoveable ship= null;
-	MapScene mscene= new MapScene();
+	MapScene mscene;
 	
 	GuiStyle label;
 	
@@ -26,17 +28,21 @@ public class MapState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-
-		ship= new MapObjectMoveable(new Image("data/ship1.png"), new Vector2f(100,100), 2.5f);
-		mscene.add(ship);
 		
-		mscene.add(new MapObject(new Image("data/rock.png"), new Vector2f(200,100)));
-
+		mscene= new MapScene(gc);
+		
 		label= new GuiStyle(new Image("data/btn_back.png"));
 		label.setBorders(3, 3, 3, 3);
 		label.setPaddings(10, 10, 8, 8);
 		label.setFont("data/myriad.OTF", 20);
 		
+		Random rnd = new Random();
+		for(int i=0; i<100; i++){
+			mscene.add(new MapObject(new Image("data/rock.png"), new Vector2f(rnd.nextInt(2000)-1000, rnd.nextInt(2000)-1000)));
+		}
+
+		ship= new MapObjectMoveable(new Image("data/ship1.png"), new Vector2f(100,100), 2.5f);
+		mscene.add(ship);
 	}
 
 	@Override
@@ -54,12 +60,13 @@ public class MapState extends BasicGameState {
 		
 		Input input= gc.getInput();
 		if(input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)){
-			Vector2f target= new Vector2f(input.getMouseX(), input.getMouseY());
+			Vector2f target= mscene.getWorldPosRelMouse();
 			
 			ship.setTarget(target);
 			ship.lookAt(target);
 		}
 
+		mscene.setCamPos(ship.getPosition());
 		mscene.updateAll();
 	}
 
