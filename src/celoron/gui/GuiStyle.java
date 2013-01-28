@@ -73,6 +73,10 @@ public class GuiStyle {
 	}
 	
 	public boolean draw(String text, float x, float y){
+		return draw(text, x,y, false);
+	}
+	
+	public boolean draw(String text, float x, float y, boolean centered){
 		/* sub image positions
 		 * 0|1|2
 		 * 3|4|5
@@ -85,6 +89,11 @@ public class GuiStyle {
 		
 		int width = font.getWidth(text) + p[0] + p[1];
 		int height= font.getHeight(text) + p[2] + p[3];
+		
+		if(centered){
+			x-= width/2;
+			y-= height/2;
+		}
 		
 		int mx = Gui.input.getMouseX();
         int my = Gui.input.getMouseY();

@@ -11,6 +11,12 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import celoron.game.dialogsystem.Answer;
+import celoron.game.map.MapObject;
+import celoron.game.map.MapObjectMoveable;
+import celoron.game.map.MapScene;
+import celoron.gui.GuiLayout;
+import celoron.gui.GuiLayoutVertical;
 import celoron.gui.GuiStyle;
 
 public class MapState extends BasicGameState {
@@ -19,7 +25,9 @@ public class MapState extends BasicGameState {
 	MapObjectMoveable ship= null;
 	MapScene mscene;
 	
-	GuiStyle label;
+	int rockCount=100;
+	
+	GuiStyle label, button;
 	
 	public MapState(int id){
 		this.id=id;
@@ -34,15 +42,29 @@ public class MapState extends BasicGameState {
 		label= new GuiStyle(new Image("data/btn_back.png"));
 		label.setBorders(3, 3, 3, 3);
 		label.setPaddings(10, 10, 8, 8);
+		label.setMargins(0, 0, 0, 5);
 		label.setFont("data/myriad.OTF", 20);
-		
-		Random rnd = new Random();
-		for(int i=0; i<100; i++){
-			mscene.add(new MapObject(new Image("data/rock.png"), new Vector2f(rnd.nextInt(2000)-1000, rnd.nextInt(2000)-1000)));
-		}
 
-		ship= new MapObjectMoveable(new Image("data/ship1.png"), new Vector2f(100,100), 2.5f);
+		button= new GuiStyle(new Image("data/btn_back2.png"));
+		button.setHoverImage(new Image("data/btn_back_hover2.png"));
+		button.setBorders(3, 3, 3, 3);
+		button.setPaddings(6, 6, 4, 4);
+		button.setFont("data/myriad.OTF", 18);
+		
+		TheGame.script.put("map", mscene);
+		
+		/*
+		Random rnd = new Random();
+		for(int i=0; i<rockCount; i++){
+			mscene.add(new MapObject(new Image("data/rock.png"), new Vector2f(rnd.nextInt(2000)-1000, rnd.nextInt(2000)-1000)));
+		}*/
+		
+		mscene.load("data/map.xml");
+
+		ship= new MapObjectMoveable(new Image("data/ship1.png"), new Vector2f(0, 0), 2.5f);
 		mscene.add(ship);
+		
+		ship.value("gold", 5000);
 	}
 
 	@Override
@@ -51,7 +73,20 @@ public class MapState extends BasicGameState {
 		
 		mscene.renderAll();
 		
-		label.draw("Right mouse click to move ship", 500, 20);
+		GuiLayout layout= new GuiLayoutVertical(500, 20);
+		layout.draw(label, "Gold: "+ ship.value("gold") );
+		layout.draw(label, "Move by right mouse click.. ");
+		
+		MapObject m= mscene.findClosestInRange(ship.getPosition(), 50, ship);
+		if(m!=null){
+			Vector2f spos= mscene.getScreenPosition(m);
+			if(button.draw((String)m.value("name"), spos.x, spos.y, true)){
+				TheGame.dialog.setDialog("planet", ship, m);
+				sbg.enterState(TheGame.DIALOG_STATE);
+				//mscene.remove(m);
+				//rockCount-=1;
+			}
+		}
 	}
 
 	@Override

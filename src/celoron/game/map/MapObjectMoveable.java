@@ -1,4 +1,4 @@
-package celoron.test;
+package celoron.game.map;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;

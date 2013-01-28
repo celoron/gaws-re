@@ -1,0 +1,48 @@
+<dialogs>
+
+<dialog id="planet">
+	function text(player, other){
+		return "This is a planet "+other.value("name");
+	}
+</dialog>
+
+<answer id="planetDestroy" did="planet">
+	function req(player, other){
+		return player.value("gold") >= 500;
+	}
+	function text(player, other){
+		return "Destroy this sh*t down [500 gold]";
+	}
+	function action(player, other){
+		player.value("gold", player.value("gold")-500);
+		map.remove(other);
+		dialog.go("planetDestroyed");
+	}
+</answer>
+
+<answer id="planetExtend" did="planet">
+	function req(player, other){
+		return player.value("gold") >= 100;
+	}
+	function text(player, other){
+		return "Extend planet [100 gold]";
+	}
+	function action(player, other){
+		player.value("gold", player.value("gold")-100);
+		dialog.go("planetExtended");
+	}
+</answer>
+
+<dialog id="planetDestroyed">
+	function text(player, other){
+		return "Good job idiot you just destroyed "+other.value("name");
+	}
+</dialog>
+
+<dialog id="planetExtended">
+	function text(player, other){
+		return "People of "+other.value("name")+" are greatfull to you";
+	}
+</dialog>
+
+</dialogs>

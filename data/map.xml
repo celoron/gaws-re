@@ -1,0 +1,17 @@
+<map>
+	<mobj name="Earth" type="fixed" x="100" y="100" image="planet">
+		<type name="planet" />
+		<type name="mines" />
+		<type name="trade" />
+	</mobj>
+	
+	<mobj name="Mars" type="fixed" x="150" y="250" image="planet">
+		<type name="planet" />
+		<type name="mines" />
+	</mobj>
+	
+	<mobj name="Neptun" type="fixed" x="350" y="150" image="planet">
+		<type name="planet" />
+		<type name="mines" />
+	</mobj>
+</map>
