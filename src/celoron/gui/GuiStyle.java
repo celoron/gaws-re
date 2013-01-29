@@ -13,6 +13,9 @@ public class GuiStyle {
 	int []p= new int[4]; //paddings
 	int []m= new int[4]; //margins
 	
+	int minWidth, minHeight;
+	int maxWidth= Integer.MAX_VALUE, maxHeight= Integer.MAX_VALUE;
+	
 	UnicodeFont font;
 	
 	public GuiStyle(Image image){
@@ -52,6 +55,22 @@ public class GuiStyle {
 		m[3]=down;
 	}
 	
+	public void setMinWidth(int width){
+		minWidth=width;
+	}
+	
+	public void setMaxWidth(int width){
+		maxWidth=width;
+	}
+	
+	public void setMinHeight(int height){
+		minHeight=height;
+	}
+	
+	public void setMaxHeight(int height){
+		maxHeight=height;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void setFont(String path, int size) {
 		try {
@@ -89,6 +108,12 @@ public class GuiStyle {
 		
 		int width = font.getWidth(text) + p[0] + p[1];
 		int height= font.getHeight(text) + p[2] + p[3];
+		
+		if(width < minWidth)width= minWidth;
+		if(width > maxWidth)width= maxWidth;
+		
+		if(height < minHeight)height= minHeight;
+		if(height > maxHeight)height= maxHeight;
 		
 		if(centered){
 			x-= width/2;

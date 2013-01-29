@@ -15,4 +15,9 @@ public class GuiLayoutVertical extends GuiLayout {
 		return r;
 	}
 
+	@Override
+	public void space(float u) {
+		move(0, u);
+	}
+
 }

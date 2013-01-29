@@ -2,46 +2,98 @@
 
 <dialog id="planet">
 	function text(player, other){
-		return "This is a planet "+other.value("name");
+		str= "Welcome to planet "+other.value("name");
+		if(other.valueBool("gift")){
+			str+="\nYou alreay giveus gift. And thank you for that";
+		}
+		return str;
 	}
 </dialog>
 
-<answer id="planetDestroy" did="planet">
+<answer id="planet.buyDestroyer" did="planet">
+	gold= 500;
 	function req(player, other){
-		return player.value("gold") >= 500;
+		return other.valueBool("destroyerSeller") &amp;&amp; player.valueFloat("gold") >= gold;
 	}
 	function text(player, other){
-		return "Destroy this sh*t down [500 gold]";
+		return "Buy a destroyer(Can destroy planets) ["+gold+" gold]";
 	}
 	function action(player, other){
-		player.value("gold", player.value("gold")-500);
+		player.value("gold", player.valueFloat("gold")-gold);
+		player.value("destroyer", player.valueFloat("destroyer")+1);
+		dialog.go("planet");
+	}
+</answer>
+
+<answer id="planet.destroy" did="planet">
+	function req(player, other){
+		return player.have("destroyer") &amp;&amp; player.valueInt("destroyer") >= 1;
+	}
+	function text(player, other){
+		return "Destroy this sh*t down [1 destoryer]";
+	}
+	function action(player, other){
+		player.value("destroyer", player.valueInt("destroyer")-1);
 		map.remove(other);
-		dialog.go("planetDestroyed");
+		dialog.go("planet.destroyed");
 	}
 </answer>
 
-<answer id="planetExtend" did="planet">
+<answer id="planet.extend" did="planet">
+	gold= 100;
 	function req(player, other){
-		return player.value("gold") >= 100;
+		return player.valueFloat("gold") >= gold;
 	}
 	function text(player, other){
-		return "Extend planet [100 gold]";
+		return "Extend planet ["+gold+" gold]";
 	}
 	function action(player, other){
-		player.value("gold", player.value("gold")-100);
-		dialog.go("planetExtended");
+		player.value("gold", player.valueFloat("gold")-gold);
+		other.value("gift", true);
+		dialog.go("planet.extended");
 	}
 </answer>
 
-<dialog id="planetDestroyed">
+<dialog id="planet.destroyed">
 	function text(player, other){
-		return "Good job idiot you just destroyed "+other.value("name");
+		if(other.have("gift")){
+			return "Why the fuck you destroying us after you give us gold?"
+		}
+		return "You just destroyed "+other.value("name");
 	}
 </dialog>
 
-<dialog id="planetExtended">
+<dialog id="planet.extended">
 	function text(player, other){
 		return "People of "+other.value("name")+" are greatfull to you";
+	}
+</dialog>
+
+
+<dialog id="star">
+	function text(player, other){
+		return "Mehh. Just a plain star..";
+	}
+</dialog>
+
+<answer id="star.destroy" did="star">
+	destroyer= 3;
+	function req(player, other){
+		return player.have("destroyer") &amp;&amp; player.valueFloat("destroyer") >= destroyer;
+	}
+	function text(player, other){
+		return "Destroy this star ["+destroyer+" destroyer]";
+	}
+	function action(player, other){
+		player.value("destroyer", player.valueInt("destroyer")-destroyer);
+		map.remove(other);
+		dialog.go("star.destroyed");
+	}
+</answer>
+
+<dialog id="star.destroyed">
+	function text(player, other){
+		return "Good job idiot you just destroyed a star";
 	}
 </dialog>
 

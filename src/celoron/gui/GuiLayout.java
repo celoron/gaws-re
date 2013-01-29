@@ -15,4 +15,5 @@ public abstract class GuiLayout {
 	}
 	
 	public abstract boolean draw(GuiStyle gs, String text);
+	public abstract void space(float u);
 }

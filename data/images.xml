@@ -1,5 +1,5 @@
 <images>
 	<image name="planet" path="data/rock.png" />
-	<image name="ship1" path="data/ship1.png" />
-	<image name="testShip" path="data/testShip.png" />
+	<image name="ship" path="data/ship1.png" />
+	<image name="star" path="data/star.png" />
 </images>

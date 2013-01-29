@@ -15,4 +15,9 @@ public class GuiLayoutHorizontal extends GuiLayout {
 		return r;
 	}
 
+	@Override
+	public void space(float u) {
+		move(u, 0);
+	}
+
 }

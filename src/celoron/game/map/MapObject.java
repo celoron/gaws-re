@@ -13,6 +13,8 @@ public class MapObject {
 	
 	Map<String, Object> values;
 	
+	String interact;
+	
 	public MapObject(Image img, Vector2f pos){
 		this.img= img;
 		setPosition(pos);
@@ -46,8 +48,44 @@ public class MapObject {
 		img.drawCentered(pos.x - camPos.x, pos.y - camPos.y);
 	}
 	
+	public void setInteract(String interact){
+		this.interact= interact;
+	}
+	
+	public String getInteract(){
+		return interact;
+	}
+	
 	public Object value(String name){
 		return values.get(name);
+	}
+	
+	public String valueStr(String name){
+		if(!have(name))return "";
+		//TODO: script debugging
+		return values.get(name).toString();
+	}
+	
+	public int valueInt(String name){
+		if(!have(name))return 0;
+		//TODO: script debugging
+		return (int)valueFloat(name);
+	}
+	
+	public float valueFloat(String name){
+		if(!have(name))return 0;
+		//TODO: script debugging
+		return Float.parseFloat(valueStr(name));
+	}
+	
+	public boolean valueBool(String name){
+		if(!have(name))return false;
+		//TODO: script debugging
+		return valueStr(name).equals("true");
+	}
+	
+	public boolean have(String name){
+		return values.containsKey(name);
 	}
 	
 	public void value(String name, Object value){

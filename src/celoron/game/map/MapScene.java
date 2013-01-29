@@ -85,6 +85,10 @@ public class MapScene {
         return null;
 	}
 	
+	public List<MapObject> getAll(){
+		return objects;
+	}
+	
 	public void load(String path){
 		File fXmlFile = new File(path);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -103,12 +107,25 @@ public class MapScene {
 				String name= e.getAttribute("name");
 				String type= e.getAttribute("type");
 				String image= e.getAttribute("image");
+				String interact= e.getAttribute("interact");
 				
 				float x= Float.parseFloat(e.getAttribute("x"));
 				float y= Float.parseFloat(e.getAttribute("y"));
 				
 				if(type.equals("fixed")){
 					mobj= new MapObject(TheGame.mapImages.getImage(image), new Vector2f(x,y));
+				}
+				
+				mobj.setInteract(interact);
+				
+				NodeList values = e.getElementsByTagName("value");
+				for (int j = 0; j < values.getLength(); j++) {
+					Element value = (Element) values.item(j);
+					
+					String vname= value.getAttribute("name");
+					String vvalue= value.getAttribute("value");
+					
+					mobj.value(vname, vvalue);
 				}
 				
 				if(mobj!=null){

@@ -12,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import celoron.game.dialogsystem.Answer;
 import celoron.game.dialogsystem.AnswerRendered;
+import celoron.game.dialogsystem.Dialog;
 import celoron.game.map.MapObject;
 import celoron.gui.GuiLayout;
 import celoron.gui.GuiLayoutVertical;
@@ -37,17 +38,19 @@ public class DialogState extends BasicGameState  {
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		
-		label= new GuiStyle(new Image("data/btn_back.png"));
-		label.setBorders(3, 3, 3, 3);
+		label= new GuiStyle(new Image("data/lbl_back.png"));
+		label.setBorders(7, 3, 3, 3);
 		label.setPaddings(10, 10, 8, 8);
 		label.setMargins(0, 0, 0, 5);
+		label.setMinWidth(500);
 		label.setFont("data/myriad.OTF", 20);
 
-		button= new GuiStyle(new Image("data/btn_back2.png"));
-		button.setHoverImage(new Image("data/btn_back_hover2.png"));
+		button= new GuiStyle(new Image("data/btn_back.png"));
+		button.setHoverImage(new Image("data/btn_back_hover.png"));
 		button.setBorders(3, 3, 3, 3);
-		button.setPaddings(8, 8, 4, 4);
+		button.setPaddings(10, 10, 6, 6);
 		button.setMargins(0, 0, 0, 3);
+		button.setMinWidth(500);
 		button.setFont("data/myriad.OTF", 20);
 		
 		TheGame.script.put("dialog", this);
@@ -61,6 +64,9 @@ public class DialogState extends BasicGameState  {
 
 		GuiLayout layout= new GuiLayoutVertical(100, 100);
 		layout.draw(label, npcText);
+		
+		layout.space(20);
+		
 		for(AnswerRendered a: answers){
 			if(layout.draw(button, a.text())){
 				a.action(player, other);
@@ -86,11 +92,16 @@ public class DialogState extends BasicGameState  {
 		this.player= player;
 		this.other= other;
 		
-		npcText= TheGame.dialogs.getDialog(name).text(player, other);
+		Dialog d= TheGame.dialogs.getDialog(name);
+		if(d==null){
+			//TODO: script debugging
+		}
+		npcText= d.text(player, other);
 		
 		answers= new ArrayList<AnswerRendered>();
 		for(Answer a: TheGame.dialogs.getAnswers(name)){
-			answers.add(new AnswerRendered(a, player, other));
+			if(a.req(player, other))
+				answers.add(new AnswerRendered(a, player, other));
 		}
 	}
 	

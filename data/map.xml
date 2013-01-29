@@ -1,17 +1,17 @@
 <map>
-	<mobj name="Earth" type="fixed" x="100" y="100" image="planet">
-		<type name="planet" />
-		<type name="mines" />
-		<type name="trade" />
+	<mobj name="Earth" type="fixed" x="100" y="100" image="planet" interact="planet">
+		<value name="destroyerSeller" value="true" />
 	</mobj>
 	
-	<mobj name="Mars" type="fixed" x="150" y="250" image="planet">
-		<type name="planet" />
-		<type name="mines" />
+	<mobj name="Mars" type="fixed" x="150" y="250" image="planet" interact="planet">
+	
 	</mobj>
 	
-	<mobj name="Neptun" type="fixed" x="350" y="150" image="planet">
-		<type name="planet" />
-		<type name="mines" />
+	<mobj name="Neptun" type="fixed" x="350" y="150" image="planet" interact="planet">
+	
+	</mobj>
+	
+	<mobj name="Star" type="fixed" x="-50" y="150" image="star" interact="star">
+	
 	</mobj>
 </map>
