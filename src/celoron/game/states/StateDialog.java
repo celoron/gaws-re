@@ -1,4 +1,4 @@
-package celoron.test;
+package celoron.game.states;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,14 @@ import celoron.game.map.MapObject;
 import celoron.gui.GuiLayout;
 import celoron.gui.GuiLayoutVertical;
 import celoron.gui.GuiStyle;
+import celoron.game.TheGame;
 
-public class DialogState extends BasicGameState  {
+/**
+ * Oyuncu ile bir NPC nin konuþmasýný saðlayan durum
+ * @author celoron
+ *
+ */
+public class StateDialog extends BasicGameState  {
 	int id;
 	
 	GuiStyle label, button;
@@ -30,7 +36,7 @@ public class DialogState extends BasicGameState  {
 	
 	boolean onDialog=false;
 	
-	public DialogState(int id){
+	public StateDialog(int id){
 		this.id=id;
 	}
 	
@@ -60,7 +66,8 @@ public class DialogState extends BasicGameState  {
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
-		
+
+		TheGame.notification.render();
 
 		GuiLayout layout= new GuiLayoutVertical(100, 100);
 		layout.draw(label, npcText);
@@ -78,14 +85,23 @@ public class DialogState extends BasicGameState  {
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame sbg, int arg2)
+	public void update(GameContainer arg0, StateBasedGame sbg, int d)
 			throws SlickException {
+		float delta= d/100.0f;
+		
+		TheGame.notification.update(delta);
 		
 		if(!onDialog){
 			sbg.enterState(TheGame.MAP_STATE);
 		}
 	}
 	
+	/**
+	 * Verilen dialogu baþlatýr
+	 * @param name Dialog id si
+	 * @param player Oyuncunun objesi
+	 * @param other NPC nin objesi
+	 */
 	public void setDialog(String name, MapObject player, MapObject other){
 		onDialog=true;
 		
@@ -105,10 +121,17 @@ public class DialogState extends BasicGameState  {
 		}
 	}
 	
+	/**
+	 * Verilen dialog id sine gider. Eski oyuncu ve npc objeleri ile devam eder
+	 * @param name Dialog id si
+	 */
 	public void go(String name){
 		setDialog(name, player, other);
 	}
 	
+	/**
+	 * Dialog durumunu terkeder.
+	 */
 	public void leave(){
 		onDialog=false;
 	}

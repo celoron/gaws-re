@@ -11,6 +11,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * Bütün dialoglarý yükleyen, tutan ve ihtiyaç anýnda veren sýnýf
+ * @author celoron
+ *
+ */
 public class Dialogs {
 	List<Dialog> dialogs;
 	List<Answer> answers;
@@ -20,6 +25,10 @@ public class Dialogs {
 		answers= new ArrayList<Answer>();
 	}
 	
+	/**
+	 * Verilen dosayadaki dialoglarý yükler
+	 * @param path
+	 */
 	public void load(String path){
 		File fXmlFile = new File(path);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -59,6 +68,11 @@ public class Dialogs {
 		}
 	}
 	
+	/**
+	 * Verilen id ye göre dialogu verir
+	 * @param id Dialog id si
+	 * @return
+	 */
 	public Dialog getDialog(String id){
 		for(Dialog d: dialogs){
 			if(d.id.equals(id)){
@@ -68,6 +82,11 @@ public class Dialogs {
 		return null;
 	}
 
+	/**
+	 * Verilen dialog id sine verilecebilecek olan cevaplari verir
+	 * @param id Dialog id si
+	 * @return
+	 */
 	public List<Answer> getAnswers(String id){
 		List<Answer> ret= new ArrayList<Answer>();
 		for(Answer a: answers){

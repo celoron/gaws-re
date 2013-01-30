@@ -3,8 +3,13 @@ package celoron.game.dialogsystem;
 import javax.script.Invocable;
 
 import celoron.game.map.MapObject;
-import celoron.test.TheGame;
+import celoron.game.TheGame;
 
+/**
+ * NPC ler tarafýndan konuþulabilen kýsýmlar.
+ * @author celoron
+ *
+ */
 public class Dialog {
 	String id;
 	String f;
@@ -14,6 +19,12 @@ public class Dialog {
 		this.f=f;
 	}
 	
+	/**
+	 * NPC nin söyleyeceði texti üreten fonksiyon
+	 * @param player: oyuncunun harita objesi
+	 * @param other: konuþulan npc nin harita objesi
+	 * @return
+	 */
 	public String text(MapObject player, MapObject other){
 		String t= "error";
 		try {

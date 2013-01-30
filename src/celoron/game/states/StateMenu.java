@@ -1,4 +1,4 @@
-package celoron.test;
+package celoron.game.states;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -9,9 +9,14 @@ import org.newdawn.slick.state.StateBasedGame;
 import celoron.gui.GuiLayout;
 import celoron.gui.GuiLayoutHorizontal;
 import celoron.gui.GuiStyle;
+import celoron.game.TheGame;
 
-
-public class MenuState extends BasicGameState {
+/**
+ * Ana menü
+ * @author celoron
+ *
+ */
+public class StateMenu extends BasicGameState {
 	int id;
 	
 	Image button= null;
@@ -21,7 +26,7 @@ public class MenuState extends BasicGameState {
 	
 	boolean toggle= false;
 	
-	public MenuState(int id){
+	public StateMenu(int id){
 		this.id=id;
 	}
 

@@ -1,7 +1,6 @@
-package celoron.test;
+package celoron.game.states;
 
 import java.util.List;
-import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,7 +11,6 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import celoron.game.dialogsystem.Answer;
 import celoron.game.map.MapObject;
 import celoron.game.map.MapObjectMoveable;
 import celoron.game.map.MapScene;
@@ -22,8 +20,14 @@ import celoron.game.map.query.MapQuerySingleObjectFilter;
 import celoron.gui.GuiLayout;
 import celoron.gui.GuiLayoutVertical;
 import celoron.gui.GuiStyle;
+import celoron.game.TheGame;
 
-public class MapState extends BasicGameState {
+/**
+ * Oyuncunun haritada dolaþmasý saðlanýlan durum
+ * @author celoron
+ *
+ */
+public class StateMap extends BasicGameState {
 	int id;
 	
 	MapObjectMoveable ship= null;
@@ -31,7 +35,7 @@ public class MapState extends BasicGameState {
 	
 	GuiStyle label, button;
 	
-	public MapState(int id){
+	public StateMap(int id){
 		this.id=id;
 	}
 
@@ -60,7 +64,7 @@ public class MapState extends BasicGameState {
 		mscene.load("data/map.xml");
 
 		//create player manually. note:going to change
-		ship= new MapObjectMoveable(new Image("data/ship1.png"), new Vector2f(0, 0), 2.5f);
+		ship= new MapObjectMoveable(TheGame.mapImages.getImage("ship"), new Vector2f(0, 0), 10.0f);
 		mscene.add(ship);
 		
 		//example of setting mapobject's value.
@@ -72,6 +76,8 @@ public class MapState extends BasicGameState {
 			throws SlickException {
 		
 		mscene.renderAll();
+		
+		TheGame.notification.render();
 		
 		GuiLayout layout= new GuiLayoutVertical(500, 20);
 		layout.draw(label, "Gold: "+ ship.valueInt("gold") );
@@ -95,8 +101,11 @@ public class MapState extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int arg2)
+	public void update(GameContainer gc, StateBasedGame sbg, int d)
 			throws SlickException {
+		float delta= d/100.0f;
+		
+		TheGame.notification.update(delta);
 		
 		Input input= gc.getInput();
 		if(input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)){
@@ -107,7 +116,7 @@ public class MapState extends BasicGameState {
 		}
 
 		mscene.setCamPos(ship.getPosition());
-		mscene.updateAll();
+		mscene.updateAll(delta);
 	}
 
 	@Override

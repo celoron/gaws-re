@@ -1,94 +1,97 @@
 package celoron.game.map;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
-public class MapObject {
+import celoron.game.basics.GameObject;
+
+/**
+ * Map tarafýndan kullanýlan objeler. transforma ve bir imaja sahiptirler
+ * Oyuncu tarafýndan etkileþime geçilebilirler.
+ * @author celoron
+ *
+ */
+public class MapObject extends GameObject{
 	Image img;
 	Vector2f pos;
 	float rot;
 	
-	Map<String, Object> values;
-	
 	String interact;
 	
+	/**
+	 * 
+	 * @param img imaj
+	 * @param pos haritadaki pozisyonu
+	 */
 	public MapObject(Image img, Vector2f pos){
 		this.img= img;
 		setPosition(pos);
 		setRot(0);
-		
-		values= new HashMap<String, Object>();
 	}
 	
+	/**
+	 * objenin pozisonunu deðiþtirir
+	 * @param pos
+	 */
 	public void setPosition(Vector2f pos){
 		this.pos= pos;
 	}
 	
+	/**
+	 * objenin haritadaki posizyonu
+	 * @return
+	 */
 	public Vector2f getPosition(){
 		return pos.copy();
 	}
 	
+	/**
+	 * rotasyon atamasý. (derece, radyan deðil)
+	 * @param rot
+	 */
 	public void setRot(float rot){
 		this.rot= rot;
 		img.setRotation(rot);
 	}
 	
+	/**
+	 * objenin rotasyonu. (derece, radyan deðil)
+	 * @return
+	 */
 	public float getRot(){
 		return rot;
 	}
 	
-	public void update(){
+	/**
+	 * Bu fonksiyonu ne yaptýðýnýzý bilmiyorsanýz çaðýrmayýn.
+	 * @param delta
+	 */
+	public void update(float delta){
 		
 	}
-	
+
+	/**
+	 * Bu fonksiyonu ne yaptýðýnýzý bilmiyorsanýz çaðýrmayýn.
+	 * @param delta
+	 */
 	public void render(Vector2f camPos){
 		img.drawCentered(pos.x - camPos.x, pos.y - camPos.y);
 	}
 	
+	/**
+	 * Oyuncu etkileþime geçtiði zaman hangi dialog un baþlatýlacaðýný atar
+	 * @param interact
+	 */
 	public void setInteract(String interact){
 		this.interact= interact;
 	}
-	
+
+	/**
+	 * Oyuncu etkileþime geçtiði zaman hangi dialog un baþlatýlacaðýný verir
+	 * @param interact
+	 */
 	public String getInteract(){
 		return interact;
 	}
-	
-	public Object value(String name){
-		return values.get(name);
-	}
-	
-	public String valueStr(String name){
-		if(!have(name))return "";
-		//TODO: script debugging
-		return values.get(name).toString();
-	}
-	
-	public int valueInt(String name){
-		if(!have(name))return 0;
-		//TODO: script debugging
-		return (int)valueFloat(name);
-	}
-	
-	public float valueFloat(String name){
-		if(!have(name))return 0;
-		//TODO: script debugging
-		return Float.parseFloat(valueStr(name));
-	}
-	
-	public boolean valueBool(String name){
-		if(!have(name))return false;
-		//TODO: script debugging
-		return valueStr(name).equals("true");
-	}
-	
-	public boolean have(String name){
-		return values.containsKey(name);
-	}
-	
-	public void value(String name, Object value){
-		values.put(name, value);
-	}
+
 }

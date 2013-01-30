@@ -6,6 +6,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 
+/**
+ * Gui çizimi yapan sýnýf.
+ * @author celoron
+ *
+ */
 public class GuiStyle {
 	Image image;
 	Image hover;
@@ -18,6 +23,11 @@ public class GuiStyle {
 	
 	UnicodeFont font;
 	
+	/**
+	 * Arkaplan resmi verilerek cont. edilir
+	 * not:muhtemelen deðiþecek
+	 * @param image
+	 */
 	public GuiStyle(Image image){
 		setImage(image);
 		
@@ -30,10 +40,21 @@ public class GuiStyle {
 		this.image= image;
 	}
 	
+	/**
+	 * Objenin üzerine gelindiðinde geçilecek olan arkaplan resmi
+	 * @param image
+	 */
 	public void setHoverImage(Image image){
 		this.hover= image;
 	}
 	
+	/**
+	 * Kenar uzunluklarý (Resmin geniþletilmeyecek yerleri)
+	 * @param left
+	 * @param right
+	 * @param up
+	 * @param down
+	 */
 	public void setBorders(int left, int right, int up, int down){
 		b[0]=left;
 		b[1]=right;
@@ -41,6 +62,13 @@ public class GuiStyle {
 		b[3]=down;
 	}
 	
+	/**
+	 * Objenin kendi içinde býrakýlacak boþluklar. (Text ile arkaplan arasýnda)
+	 * @param left
+	 * @param right
+	 * @param up
+	 * @param down
+	 */
 	public void setPaddings(int left, int right, int up, int down){
 		p[0]=left;
 		p[1]=right;
@@ -48,6 +76,13 @@ public class GuiStyle {
 		p[3]=down;
 	}
 	
+	/**
+	 * Objenin diðer gui objeleri ile aralarýnda býrakýlcak boþluk
+	 * @param left
+	 * @param right
+	 * @param up
+	 * @param down
+	 */
 	public void setMargins(int left, int right, int up, int down){
 		m[0]=left;
 		m[1]=right;
@@ -83,18 +118,43 @@ public class GuiStyle {
 		}
 	}
 	
+	/**
+	 * Verilen text ile oluþacak objenin geniþliðini verir
+	 * @param text
+	 * @return
+	 */
 	public int width(String text){
 		return font.getWidth(text) + p[0] + p[1] + m[0] + m[1];
 	}
-	
+
+	/**
+	 * Verilen text ile oluþacak objenin uzunluðunu verir
+	 * @param text
+	 * @return
+	 */
 	public int height(String text){
 		return font.getHeight(text) + p[2] + p[3] + m[2] + m[3];
 	}
 	
+	/**
+	 * Çizim yapma
+	 * @param text Ýçerik
+	 * @param x Pozisyon.x
+	 * @param y Pozisyon.y
+	 * @return
+	 */
 	public boolean draw(String text, float x, float y){
 		return draw(text, x,y, false);
 	}
-	
+
+	/**
+	 * Çizim yapma
+	 * @param text Ýçerik
+	 * @param x Pozisyon.x
+	 * @param y Pozisyon.y
+	 * @param centered Verilen posizyon objenin tam ortasýmý? diðer durumda sol üst
+	 * @return
+	 */
 	public boolean draw(String text, float x, float y, boolean centered){
 		/* sub image positions
 		 * 0|1|2

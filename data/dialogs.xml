@@ -27,7 +27,7 @@
 
 <answer id="planet.destroy" did="planet">
 	function req(player, other){
-		return player.have("destroyer") &amp;&amp; player.valueInt("destroyer") >= 1;
+		return player.valueInt("destroyer") >= 1;
 	}
 	function text(player, other){
 		return "Destroy this sh*t down [1 destoryer]";
@@ -50,6 +50,7 @@
 	function action(player, other){
 		player.value("gold", player.valueFloat("gold")-gold);
 		other.value("gift", true);
+		notification.add("You extended "+other.value("name"), 1);
 		dialog.go("planet.extended");
 	}
 </answer>
@@ -79,7 +80,7 @@
 <answer id="star.destroy" did="star">
 	destroyer= 3;
 	function req(player, other){
-		return player.have("destroyer") &amp;&amp; player.valueFloat("destroyer") >= destroyer;
+		return player.valueInt("destroyer") >= destroyer;
 	}
 	function text(player, other){
 		return "Destroy this star ["+destroyer+" destroyer]";

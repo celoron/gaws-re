@@ -12,12 +12,25 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * Haritadaki objelerin imaj dosyalarýnýn isimlerinin ve resimlerin yerlerini tutar
+ * @author celoron
+ *
+ */
 public class MapImages {
 	Map<String, String> images;
 	
-	public MapImages(String path){
+	public MapImages(){
 		images= new HashMap<String, String>();
 		
+	}
+	
+	/**
+	 * verilen yerdeki dosyadan imaj lari yükler.
+	 * not:imaj dosyalarýnýn kendileri yüklenmez
+	 * @param path
+	 */
+	public void load(String path){
 		File fXmlFile = new File(path);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -38,6 +51,11 @@ public class MapImages {
 		}
 	}
 	
+	/**
+	 * ismi verilen imajý yükler ve return eder.
+	 * @param name
+	 * @return
+	 */
 	public Image getImage(String name){
 		Image img= null;
 		
