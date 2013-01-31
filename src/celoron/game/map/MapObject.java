@@ -75,7 +75,15 @@ public class MapObject extends GameObject{
 	 * @param delta
 	 */
 	public void render(Vector2f camPos){
-		img.drawCentered(pos.x - camPos.x, pos.y - camPos.y);
+		int w= img.getWidth();
+		int h= img.getHeight();
+		
+		w=64;
+		h=64;
+		
+		img.draw(pos.x - camPos.x - w/2, pos.y - camPos.y - h/2, w, h);
+		
+		//img.drawCentered(pos.x - camPos.x, pos.y - camPos.y);
 	}
 	
 	/**

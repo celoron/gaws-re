@@ -1,5 +1,10 @@
 <images>
-	<image name="planet" path="data/rock.png" />
+	<image name="planet1" path="data/textures/planets/planet1.png" />
+	<image name="planet2" path="data/textures/planets/planet2.png" />
+	<image name="planet3" path="data/textures/planets/planet3.png" />
+	<image name="planet4" path="data/textures/planets/planet4.png" />
+	<image name="planet5" path="data/textures/planets/planet5.png" />
+	<image name="planet6" path="data/textures/planets/planet6.png" />
 	<image name="ship" path="data/ship1.png" />
 	<image name="star" path="data/star.png" />
 </images>
