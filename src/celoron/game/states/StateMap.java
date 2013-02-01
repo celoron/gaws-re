@@ -24,7 +24,7 @@ import celoron.game.TheGame;
 
 /**
  * Oyuncunun haritada dolaþmasý saðlanýlan durum
- * @author celoron
+ * @author celoron 
  *
  */
 public class StateMap extends BasicGameState {
@@ -74,6 +74,8 @@ public class StateMap extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+
+		gc.setMultiSample(8);
 		
 		mscene.renderAll();
 		

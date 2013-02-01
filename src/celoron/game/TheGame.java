@@ -77,6 +77,7 @@ public class TheGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
+		
 		notification = new Notification();
 
 		gc.setVSync(true);
