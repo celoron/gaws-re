@@ -10,6 +10,7 @@ public class TheGame2 extends StateBasedGame {
 	public TheGame2() {
         super("Test Muzaffer");
         
+        
         addState(new Scene());
         enterState(0);
     }
