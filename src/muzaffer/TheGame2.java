@@ -9,7 +9,7 @@ public class TheGame2 extends StateBasedGame {
 	
 	public TheGame2() {
         super("Test Muzaffer");
-/*final*/
+/*final3*/
         
         addState(new Scene());
         enterState(0);
